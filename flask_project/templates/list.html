@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Каталог подій{% endblock %}
+{% block content %}
+<section class="section-heading">
+    <p class="eyebrow">Каталог</p>
+    <h1>{{ heading }}</h1>
+    <p>Кількість подій: {{ events|length }}. Наступний номер у каталозі: {{ event_count + 1 }}.</p>
+</section>
+{% if events %}
+    <div class="cards">
+        {% for event in events %}
+            <article class="card">
+                <div class="meta">{{ event.date }}</div>
+                <h2>{{ event.name }}</h2>
+                <p>{{ event.description }}</p>
+                <a href="{{ url_for('register', event=event.code) }}">Обрати подію</a>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Наразі подій немає.</p>
+{% endif %}
+{% endblock %}

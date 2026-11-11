@@ -1,0 +1,27 @@
+{% extends 'events/base.html' %}
+{% block title %}Головна · Студентські події{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">Практична робота з веброзробки</p>
+    <h1>{{ heading|default:'Студентські події' }}</h1>
+    <p>У нашому каталозі {{ event_count }} навчальні події. Оберіть цікаву тему та залиште заявку.</p>
+    <a class="button" href="{% url 'event_list' %}">Переглянути події</a>
+</section>
+<section>
+    <h2>Найближчі заняття</h2>
+    {% if events %}
+        <div class="cards">
+            {% for event in events %}
+                <article class="card">
+                    <div class="meta">{{ event.date }}</div>
+                    <h3>{{ event.name }}</h3>
+                    <p>{{ event.description|truncatewords:14 }}</p>
+                    <a href="{% url 'register' %}?event={{ event.code }}">Зареєструватися</a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Поки немає доступних подій.</p>
+    {% endif %}
+</section>
+{% endblock %}
